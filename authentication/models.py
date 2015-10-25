@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import BaseUserManager
 from django.db import models
 
+
 class AccountManager(BaseUserManager):
     def create_user(self, email, password=None, **kwargs):
         if not email:
@@ -11,7 +12,8 @@ class AccountManager(BaseUserManager):
             raise ValueError('User must have a valid username')
 
         account = self.model(
-            email = self.normalize_email(email), username=kwargs.get('username')
+            email=self.normalize_email(email),
+            username=kwargs.get('username')
         )
 
         account.set_password(password)
@@ -26,7 +28,7 @@ class AccountManager(BaseUserManager):
         account.save()
 
         return account
-        
+
 
 class Account(AbstractBaseUser):
     email = models.EmailField(unique=True)
